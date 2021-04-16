@@ -4,12 +4,19 @@
     <meta charset="UTF-8">
     <title>Meme Generator</title>
 </head>
-<body style="background-color: black">
-    <svg height="550" width="500" xmlns="http://www.w3.org/2000/svg" overflow="hidden" style="background-color: white">
+<p style="font-family: sans-serif; color: white">
+    Move mouse to change caption. <br>
+    Click to permanently set caption. <br>
+    Reload for new image. <br>
+</p>
+<body style="background-color: black" id="body">
+    <svg id="svg" height="550" width="500" xmlns="http://www.w3.org/2000/svg" overflow="hidden" style="background-color: white">
         <text id="text" font-family="sans-serif" font-size="36" x="10" y="35"></text>
         <image x="0" y="50" href="https://picsum.photos/500"></image>
     </svg>
-
+    <br>
+    <br>
+<!--    <button id="export">Export</button>-->
 </body>
 <script>
     let text = document.getElementById("text")
@@ -19,10 +26,21 @@
     Http.open("GET", url)
     Http.send()
 
+    let words = []
     Http.onreadystatechange = (e) => {
-        let words = Http.responseText.split("\n")
+        words = Http.responseText.split("\n")
         text.innerHTML = words[Math.floor(Math.random() * words.length)]
     }
+
+    let clicked = false
+
+    document.getElementById("body").addEventListener("click", function () {
+        clicked = true
+    })
+
+    document.getElementById("body").addEventListener("mousemove", function () {
+        if(!clicked) text.innerHTML = words[Math.floor(Math.random() * words.length)]
+    })
 
 </script>
 </html>
