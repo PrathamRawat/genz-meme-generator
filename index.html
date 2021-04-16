@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meme Generator</title>
+</head>
+<body style="background-color: black">
+    <svg height="550" width="500" xmlns="http://www.w3.org/2000/svg" overflow="hidden" style="background-color: white">
+        <text id="text" font-family="sans-serif" font-size="36" x="10" y="35"></text>
+        <image x="0" y="50" href="https://picsum.photos/500"></image>
+    </svg>
+
+</body>
+<script>
+    let text = document.getElementById("text")
+    const Http = new XMLHttpRequest()
+    const url = "https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt"
+
+    Http.open("GET", url)
+    Http.send()
+
+    Http.onreadystatechange = (e) => {
+        let words = Http.responseText.split("\n")
+        text.innerHTML = words[Math.floor(Math.random() * words.length)]
+    }
+
+</script>
+</html>
